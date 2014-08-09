@@ -36,7 +36,6 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
     var carw;
     var shift = 0;
     var clickCount = 0;
-    
     var reset = function() {
         carws = cars.get('offsetWidth');
         carw = carws[0];
@@ -63,7 +62,7 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
                 c.splice(i, 1);
             }
         }
-        if (typeof prependValue != 'undefined') {
+        if (typeof prependValue !== 'undefined') {
             c.unshift(prependValue);
         }
         return c;
