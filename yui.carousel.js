@@ -1,12 +1,7 @@
 YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
     if (typeof window.console == 'undefined') {
-        window.console = {
-            log: function() {},
-            info: function() {},
-            warn: function() {}
-        }
+        window.console = { log: function() {}, info: function() {}, warn: function() {} }
     }
-    //on resize window plugin
     Y.Event.define('windowresize', {
         on: (Y.UA.gecko && Y.UA.gecko < 1.91) ? function(node, sub, notifier) {
             sub._handle = Y.Event.attach('resize', function(e) {
@@ -41,14 +36,7 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
     var carw;
     var shift = 0;
     var clickCount = 0;
-    /*var getIndexOf = function(node, nodelist) {
-      for (var i = 0; i < nodelist.size(); i++) {
-        if ( nodelist.item(i).compareTo(node) ) { return i; }
-      }
-      return false;
-    }
-  
-    console.log(cars.indexOf(cars.item(0)));*/
+    
     var reset = function() {
         carws = cars.get('offsetWidth');
         carw = carws[0];
@@ -60,10 +48,6 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
         Y.each(carws, function(val, key) {
             cw += val;
         });
-        //Y.all('.dhSlideNav').removeClass('active');
-        //if (Y.all('.dhSlideNav').item(0) !== null) {
-        //  Y.all('.dhSlideNav').item(0).addClass('active');
-        //}
         carousel.setStyles({
             'width': cw + 'px',
             'left': '0'
@@ -71,7 +55,6 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
     };
     reset();
     var rearrange = function(arr, n) {
-        console.log(n);
         var c = arr;
         var prependValue;
         for (var i = 0; i < c.length; i++) {
@@ -101,19 +84,15 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
             }
             var shiftIndex = Y.all('#dhCarousel li').indexOf(Y.one('#dhSlide-' + index));
             var nodeIndex = index - 1;
-            console.log(nodeIndex)
             Y.one('#dhNavItem-' + index).addClass('active');
             var carsArr = [];
             Y.all('#dhCarousel li').each(function(el) {
                 var i = Y.all('#dhCarousel li').indexOf(el);
                 if (i != nodeIndex) {
-                    carsArr.push(i + 1);
-                    //carsArr.push(el.get('id'));
-                    //Y.one('#dhSlide-' + (i+1)).appendTo('#dhCarousel');     
+                    carsArr.push(i + 1);    
                 }
             });
             var carsArrRe = rearrange(carsArr, nodeIndex + 1);
-            console.log(carsArrRe);
             shift = '-' + (carw * shiftIndex);
             x = shift + 'px';
             carousel.transition({
@@ -122,11 +101,8 @@ YUI().use('event-base-ie', 'node', 'event', 'transition', function(Y) {
                 easing: 'ease-out'
             }, function() {
                 for (var i = 0; i < carsArrRe.length; i++) {
-                    //  console.log(Y.all('#dhCarousel li').item(carsArr[0]).get('id'));
-                    //console.log(carsArr[i]);
                     Y.one('#dhCarousel').append(Y.one('#dhSlide-' + carsArrRe[i]));
                 }
-                //console.log(carsArr);
                 carousel.setStyle('left', '0');
             });
             return;
